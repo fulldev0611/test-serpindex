@@ -78,7 +78,8 @@ function App() {
                   return (
                     <div className='d-flex'>
                       <p>indexed count : {item.indexedCount}</p>
-                      <span> **** </span>
+                      <p>language : {item.language}</p>
+                      <p>url : {item.url}</p>
                       <p>indexed total : {item.indexedTotal}</p>
                     </div>
                   )
