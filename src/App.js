@@ -76,7 +76,7 @@ function App() {
                     <div className='d-flex justify-content-between'>
                       <p>indexed count : {item.indexedCount}</p>
                       <span> **** </span>
-                      <p>indexed count : {item.indexedTotal}</p>
+                      <p>indexed total : {item.indexedTotal}</p>
                     </div>
                   )
                 }))}
