@@ -6,9 +6,14 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import Pagination from 'react-bootstrap-table2-paginator';
 import cellEditFactory, {Type} from 'react-bootstrap-table2-editor'
 import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
-
+import { Modal, Button } from 'react-bootstrap';
 function App() {
   const [ data, setData] = useState([])
+  const [modalInfo, setmodalInfo] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   useEffect(() => {
     getData()
   }, [])
@@ -22,7 +27,7 @@ function App() {
    
    {
     dataField: "createdOn",
-    text: "createdOn",
+    text: "Create On",
 
    },
    {
@@ -42,6 +47,32 @@ function App() {
     filter: textFilter(),
    }
   ]
+  const rowEvents = {
+    onClick: (e,row) => {
+      console.log(row)
+      setmodalInfo(row)
+      tooggleTrueFalse()
+    }
+  }
+
+  const tooggleTrueFalse = () => {
+    setShowModal(handleShow)
+  }
+
+  const ModalContent = () => {
+    return (
+      <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+              <Modal.Title>Info</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+              <p>Title: {modalInfo.title}</p>
+              <p>Created On : {modalInfo.createdOn}</p>
+              <p>Category: {modalInfo.category}</p>  
+          </Modal.Body>
+      </Modal>
+    )
+  }
 
   console.log(data)
   return (
@@ -51,16 +82,17 @@ function App() {
         keyField='id'
          data={data} 
          columns={columns} 
+         rowEvents={rowEvents}
          striped
          hover
          condensed
-         pagination={Pagination()}
-         cellEdit={cellEditFactory({
-            mode: "click",
-         })}
+         pagination={Pagination({})}
+         //cellEdit={cellEditFactory({
+          //  mode: "click",
+         //})}
          filter={filterFactory()}
         />
-        
+        {show ? <ModalContent /> : null}
     </div>
   );
 }
