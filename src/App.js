@@ -47,6 +47,11 @@ function App() {
       dataField: "domain",
       text: "Domain",
       sort: true,
+    },
+    {
+      dataField: "validUntil",
+      text: "Expired",
+      sort: true,
     }
 
   ]
@@ -61,6 +66,8 @@ function App() {
   const tooggleTrueFalse = () => {
     setShowModal(handleShow)
   }
+
+  
 
 
   const ModalContent = () => {
@@ -127,7 +134,7 @@ function App() {
                 striped
                 hover
                 condensed
-                pagination={Pagination({})}
+                pagination={Pagination({sizePerPage: 5})}
                 {...props.baseProps}
               />
             </div>
