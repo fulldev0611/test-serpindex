@@ -73,7 +73,7 @@ function App() {
               <div>
                 {modalInfo.entries.map((item => {
                   return (
-                    <div className='d-flex'>
+                    <div className='d-flex justify-content-between'>
                       <p>indexed count : {item.indexedCount}</p>
                       <span> **** </span>
                       <p>indexed count : {item.indexedTotal}</p>
