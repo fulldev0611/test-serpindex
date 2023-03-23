@@ -106,6 +106,10 @@ function App() {
           <BootstrapTable
            rowEvents={rowEvents}
 
+         striped
+         hover
+         condensed
+         pagination={Pagination({})}
             { ...props.baseProps }
           />
         </div>
