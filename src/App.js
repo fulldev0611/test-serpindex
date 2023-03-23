@@ -19,11 +19,17 @@ function App() {
   }
 
   const columns= [
+   
    {
-     dataField: "title",
-      text: "Title",
-      sort: true,
+    dataField: "createdOn",
+    text: "createdOn",
+
    },
+   {
+    dataField: "title",
+     text: "Title",
+     sort: true,
+  },
    {
     dataField: "category",
     text: "Category",
