@@ -68,7 +68,19 @@ function App() {
           <Modal.Body>
               <p>Title: {modalInfo.title}</p>
               <p>Created On : {modalInfo.createdOn}</p>
-              <p>Category: {modalInfo.category}</p>  
+              <p>Category: {modalInfo.category}</p>
+              <p>Expired: {modalInfo.validUntil}</p>
+              <div>
+                {modalInfo.entries.map((item => {
+                  return (
+                    <div className='d-flex'>
+                      <p>indexed count : {item.indexedCount}</p>
+                      <span> **** </span>
+                      <p>indexed count : {item.indexedTotal}</p>
+                    </div>
+                  )
+                }))}
+              </div>  
           </Modal.Body>
       </Modal>
     )
