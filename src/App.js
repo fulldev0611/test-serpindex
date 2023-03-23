@@ -4,10 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BootstrapTable from 'react-bootstrap-table-next';
 import Pagination from 'react-bootstrap-table2-paginator';
-//import cellEditFactory, {Type} from 'react-bootstrap-table2-editor'
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
-
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import { Modal, Button } from 'react-bootstrap';
 function App() {
   const { SearchBar } = Search;
