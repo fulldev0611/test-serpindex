@@ -4,13 +4,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BootstrapTable from 'react-bootstrap-table-next';
 import Pagination from 'react-bootstrap-table2-paginator';
-//import cellEditFactory, {Type} from 'react-bootstrap-table2-editor'
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
-
+import cellEditFactory, {Type} from 'react-bootstrap-table2-editor'
 import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import { Modal, Button } from 'react-bootstrap';
 function App() {
-  const {SearchBar} = Search;
   const [ data, setData] = useState([])
   const [modalInfo, setmodalInfo] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -47,8 +44,8 @@ function App() {
     dataField: "domain",
     text: "Domain",
     sort: true,
+    filter: textFilter(),
    }
-   
   ]
   const rowEvents = {
     onClick: (e,row) => {
@@ -92,26 +89,21 @@ function App() {
   console.log(data)
   return (
     <div className="App">
-      <ToolkitProvider
-          keyField="id"
-          data={ data }
-          columns={ columns }
-          search
-    >
-       {
-      props => (
-        <div>
-          <SearchBar { ...props.searchProps } />
-          <hr />
-          <BootstrapTable
-            { ...props.baseProps }
-          />
-        </div>
-      )
-    }
-
-  </ToolkitProvider>
-     
+      
+      <BootstrapTable
+        keyField='id'
+         data={data} 
+         columns={columns} 
+         rowEvents={rowEvents}
+         striped
+         hover
+         condensed
+         pagination={Pagination({})}
+         //cellEdit={cellEditFactory({
+          //  mode: "click",
+         //})}
+         filter={filterFactory()}
+        />
         {show ? <ModalContent /> : null}
     </div>
   );
