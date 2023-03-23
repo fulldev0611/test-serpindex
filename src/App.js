@@ -5,13 +5,13 @@ import axios from 'axios';
 import BootstrapTable from 'react-bootstrap-table-next';
 import Pagination from 'react-bootstrap-table2-paginator';
 //import cellEditFactory, {Type} from 'react-bootstrap-table2-editor'
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 
-import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import { Modal, Button } from 'react-bootstrap';
 function App() {
-  const {SearchBar} = Search;
-  const [ data, setData] = useState([])
+  const { SearchBar } = Search;
+  const [data, setData] = useState([])
   const [modalInfo, setmodalInfo] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [show, setShow] = useState(false)
@@ -20,38 +20,38 @@ function App() {
   useEffect(() => {
     getData()
   }, [])
-  const getData= () => {
-    axios("https://serpindex-demo.svc.violetvault.com/api/index").then((res) => 
+  const getData = () => {
+    axios("https://serpindex-demo.svc.violetvault.com/api/index").then((res) =>
       setData(res.data)
     )
   }
 
-  const columns= [
-   
-   {
-    dataField: "createdOn",
-    text: "Create On",
+  const columns = [
 
-   },
-   {
-    dataField: "title",
-     text: "Title",
-     sort: true,
-  },
-   {
-    dataField: "category",
-    text: "Category",
-    sort: true,
-   },
-   {
-    dataField: "domain",
-    text: "Domain",
-    sort: true,
-   }
-   
+    {
+      dataField: "createdOn",
+      text: "Create On",
+
+    },
+    {
+      dataField: "title",
+      text: "Title",
+      sort: true,
+    },
+    {
+      dataField: "category",
+      text: "Category",
+      sort: true,
+    },
+    {
+      dataField: "domain",
+      text: "Domain",
+      sort: true,
+    }
+
   ]
   const rowEvents = {
-    onClick: (e,row) => {
+    onClick: (e, row) => {
       console.log(row)
       setmodalInfo(row)
       tooggleTrueFalse()
@@ -62,30 +62,47 @@ function App() {
     setShowModal(handleShow)
   }
 
+
   const ModalContent = () => {
     return (
       <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-              <Modal.Title>Info</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-              <p>Title: {modalInfo.title}</p>
-              <p>Created On : {modalInfo.createdOn}</p>
-              <p>Category: {modalInfo.category}</p>
-              <p>Expired: {modalInfo.validUntil}</p>
-              <div>
-                {modalInfo.entries.map((item => {
+        <Modal.Header closeButton>
+          <Modal.Title>Info</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Title: {modalInfo.title}</p>
+          <p>Created On : {modalInfo.createdOn}</p>
+          <p>Category: {modalInfo.category}</p>
+          <p>Expired: {modalInfo.validUntil}</p>
+          <div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">index count</th>
+                  <th scope="col">index total</th>
+                  <th scope="col">language</th>
+                  <th scope='col'>url</th>
+                </tr>
+              </thead>
+              <tbody>
+                {modalInfo.entries.map((item) => {
                   return (
-                    <div className='d-flex'>
-                      <p>indexed count : {item.indexedCount}</p>
-                      <p>language : {item.language}</p>
-                      <p>url : {item.url}</p>
-                      <p>indexed total : {item.indexedTotal}</p>
-                    </div>
+                    <tr>
+                      <td>{item.indexedCount}</td>
+                      <td>{item.indexedTotal}</td>
+                      <td>{item.language}</td>
+                      <td>{item.url}</td>
+                    </tr>
                   )
-                }))}
-              </div>  
-          </Modal.Body>
+
+                })}
+
+
+              </tbody>
+            </table>
+          </div>
+
+        </Modal.Body>
       </Modal>
     )
   }
@@ -94,32 +111,32 @@ function App() {
   return (
     <div className="App">
       <ToolkitProvider
-          keyField="id"
-          data={ data }
-          columns={ columns }
-          search
-    >
-       {
-      props => (
-        <div>
-          <SearchBar { ...props.searchProps } />
-          <hr />
-          <BootstrapTable
-           rowEvents={rowEvents}
+        keyField="id"
+        data={data}
+        columns={columns}
+        search
+      >
+        {
+          props => (
+            <div>
+              <SearchBar {...props.searchProps} />
+              <hr />
+              <BootstrapTable
+                rowEvents={rowEvents}
 
-         striped
-         hover
-         condensed
-         pagination={Pagination({})}
-            { ...props.baseProps }
-          />
-        </div>
-      )
-    }
+                striped
+                hover
+                condensed
+                pagination={Pagination({})}
+                {...props.baseProps}
+              />
+            </div>
+          )
+        }
 
-  </ToolkitProvider>
-     
-        {show ? <ModalContent /> : null}
+      </ToolkitProvider>
+
+      {show ? <ModalContent /> : null}
     </div>
   );
 }
