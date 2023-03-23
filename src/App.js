@@ -25,8 +25,8 @@ function App() {
       sort: true,
    },
    {
-    dataField: "Cetegory",
-    text: "cetegory",
+    dataField: "category",
+    text: "Category",
     sort: true,
    },
    {
